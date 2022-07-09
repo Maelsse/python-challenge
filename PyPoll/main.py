@@ -17,7 +17,7 @@ with open (csvpath) as csvfile:
     candidatenames=[]
     v_count= 0
     loop_a = 0 #First loop for candidates
-    linecount=0
+    linecount=0 
 
     for row in csvreader:
         voterid=row[0] # assign column 0 as voterid
