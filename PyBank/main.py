@@ -12,75 +12,52 @@ with open (csvpath) as csvfile:
 
     #Variables
     months=[]
-    outcomes=[] #Profits/Losses
+    outcomes=[]
 
     # Conditions
-    total= 0
+    total_pl= 0
     m_count=0
     m_change=0
-    loop1= 0
-    loop2= 0
     change=0
-    incr=0
-    decr=0
-    cline1=0
-    cline2=0
-
+    revenue = 0
+    min_revenue = 0
+    max_revenue = 0
+    sum_revenue = 0
+    avg_revenue = 0
+    avg_revenue_change = 0
+    sum_revenue_change = 0
+    prev_revenue = 0
+    line_num = 1
 
     # Reading the rows
     for row in csvreader:
-        month=row[0] #First column is the month
-        outcome=row[1] #Second column is pro/loss
-        months.append(month) #line to list months
-        outcomes.append(outcome)  #line to list outcomes
-    
-    m_count = len(months) #counting the total number of months 
-    print(m_count)
+        m_count = m_count + 1
+        revenue = float(row[1])
+        sum_revenue = sum_revenue + revenue
+        revenue_change = revenue - prev_revenue
+        sum_revenue_change = sum_revenue_change + revenue_change
+        if revenue_change < min_revenue:
+            min_month = row[0]
+            min_revenue = revenue_change
+        if revenue_change > max_revenue:
+            max_month = row[0]
+            max_revenue = revenue_change
+        prev_revenue = revenue
 
-    # BEGINNING DATA ANALYSIS
-
-# This loop is to figure out total outcomes (Pro/Losses)
-
-for loop1 in range(m_count):
-    total=total+int(outcomes[loop1])
-print(total)
-
-# Calculating the changes per month
-
-#for loop2 in range(m_count-1): 
-   
-    #change=change+(float(outcomes[loop2+1])-float(outcomes[loop2]))
-    #print(change)
-    #print(change/(m_count-1))
-#Calculating monthly changes
-    #incr=(float(outcomes[loop2+1])-float(outcomes[loop2]))
-    #if m_change>incr: #Greatest increase
-        #incr=m_change
-        #cline1=loop2
-   # else:
-       # incr=incr
-#print(incr)
-#print(months[cline1+1])
-  #  if m_change<decr:
-   #     decr=m_change
-   #     cline2=loop2
-   # else:
-    #    decr=decr
-
-#print(decr)
-#print(months[cline2+1])
+avg_revenue = sum_revenue/m_count
+avg_revenue_change = round(sum_revenue_change/(m_count - 1), 2)
+    #sum_revenue_change/(m_count-1)
 
 #Generating Outputs
-
 analysis=f'\
     Financial Analysis\n\
     Total Months: {m_count}\n\
-    Total: {total}\n\
-    Average Change: {change}\n\
-    Greatest Increase in Profits: {incr}\n\
-    Greatest Decrease in Profits: {decr}'
+    Total: ${round(sum_revenue,0)}\n\
+    Average Change: {avg_revenue_change}\n\
+    Greatest Increase in Profits: {max_month} (${max_revenue})\n\
+    Greatest Decrease in Profits: {min_month} (${min_revenue})'
 
-# print(analysis)
+print(analysis)
 
 #Write into text file
 # pybankfile=open("pybank.txt","w") #Open or create a new file 

@@ -25,9 +25,9 @@ winner = '' #election winner
 c1_name = 'Charles Casper Stockham'
 c2_name = 'Diana DeGette'
 c3_name = 'Raymon Anthony Doane'
-candidate1_count = 0
-candidate2_count = 0
-candidate3_count = 0
+c1_count = 0
+c2_count = 0
+c3_count = 0
 winning_count = 0
 
 with open (csvpath) as csvfile:
@@ -41,11 +41,11 @@ with open (csvpath) as csvfile:
         if row[2] not in candidatenames:
             candidatenames.append(row[2])
         if str(candidate) == str(c1_name):
-            candidate1_count += 1
+            c1_count += 1
         elif str(candidate) == str(c2_name):
-            candidate2_count += 1
+            c2_count += 1
         elif str(candidate) == str(c3_name):
-            candidate3_count += 1
+            c3_count += 1
         votes.append(voterid)
         counties.append(county)
         candidates.append(candidate)
@@ -57,24 +57,24 @@ c_names = len(candidatenames)
 #     candidatenames,'\n',
 #     v_count,'\n',
 #     c_names,'\n',
-#     candidate1_count,'\n',
-#     candidate2_count,'\n',
-#     candidate3_count
+#     c1_count,'\n',
+#     c2_count,'\n',
+#     c3_count
 # )
-candidate1_percentage = (candidate1_count / v_count) * 100
-candidate2_percentage = (candidate2_count / v_count) * 100
-candidate3_percentage = (candidate3_count / v_count) * 100
+c1_per = (c1_count / v_count) * 100
+c2_per = (c2_count / v_count) * 100
+c3_per = (c3_count / v_count) * 100
 
 # print(
-#         candidate1_percentage,'/n',
-#         candidate2_percentage,'/n',
-#         candidate3_percentage,'/n',
+#         c1_percentage,'/n',
+#         c2_percentage,'/n',
+#         c3_percentage,'/n',
 # )
 
 voteTotalDict = {
-    c1_name : candidate1_count, 
-    c2_name : candidate2_count,
-    c3_name : candidate3_count,
+    c1_name : c1_count, 
+    c2_name : c2_count,
+    c3_name : c3_count,
     }
 
 winner = max(voteTotalDict, key=voteTotalDict.get)
@@ -87,9 +87,9 @@ analysis=f'\
     -------------------------\n\
     Total Votes: {v_count} \n\
     -------------------------\n\
-    {c1_name} : {round(candidate1_percentage,3)}% ({candidate1_count})\n\
-    {c2_name} : {round(candidate2_percentage,3)}%({candidate2_count})\n\
-    {c3_name} : {round(candidate3_percentage,3)}% ({candidate3_count})\n\
+    {c1_name} : {round(c1_per,3)}% ({c1_count})\n\
+    {c2_name} : {round(c2_per,3)}%({c2_count})\n\
+    {c3_name} : {round(c3_per,3)}% ({c3_count})\n\
     -------------------------\n\
     Winner: {winner} \n\
     -------------------------'
