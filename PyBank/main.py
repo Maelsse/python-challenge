@@ -60,6 +60,7 @@ analysis=f'\
 print(analysis)
 
 #Write into text file
-# pybankfile=open("pybank.txt","w") #Open or create a new file 
-# pybankfile.writelines(analysis) #Print analysis
-# pybankfile.close() #Close file
+
+pybankfile=open("pybank.txt","w") #Open or create a new file 
+pybankfile.writelines(analysis) #Print analysis
+pybankfile.close() #Close file
